@@ -9,3 +9,6 @@
 
 # env files (can opt-in for committing if needed)
 .env
+
+# db
+/src/db/migrations
