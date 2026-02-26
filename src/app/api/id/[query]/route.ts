@@ -31,6 +31,7 @@ async function getLastId(radio: string) {
 }
 
 // Uses the "radio-id" API to search for a radio, recognize the music currently playing, and save it as a new record in the db
+// http://localhost:3000/api/id/name=89_fm&countrycode=BR
 export async function GET(request: NextRequest, { params }: RequestProps) {
   try {
     const query = (await params).query
@@ -38,12 +39,12 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
     const result = await response.json()
     if (response.status == 200) {
       console.log(`Music found! ${result.track.artist} - ${result.track.title}`)
-      const lastId = await getLastId(result.radio.name)
+      const lastId = await getLastId(result.radio.id)
       if (
         lastId == undefined || 
         result.track.title != lastId.music_title
       ) {
-        await saveId(result.radio.name, result.track.artist, result.track.title)
+        await saveId(result.radio.id, result.track.artist, result.track.title)
       }
       return Response.json(result)
     } else {
