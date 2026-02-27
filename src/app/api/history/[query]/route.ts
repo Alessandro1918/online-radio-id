@@ -30,6 +30,6 @@ export async function GET(req: NextRequest, { params }: RequestProps) {
       lt(schema.ids.timestamp, new Date(filters.end))
     ))
     .orderBy(desc(schema.ids.timestamp))
-  const filtered = result.map(({uuid, radio, ...rest}) => rest);
+  const filtered = result.map(({uuid, radio, ...rest}) => rest)
   return Response.json(filtered)
 }
