@@ -27,7 +27,9 @@ export function RadioList() {
           return (
             <div key={e.id} className="flex flex-row items-center">
               <img className="w-8 h-8 bg-gray-500" src={e.icon}/>
-              <p className="text-green-500">{e.name}</p>
+              <a href={`/radio/${e.id}`}>
+                <p className="text-green-500">{e.name}</p>
+              </a>
             </div>
           )
         })
