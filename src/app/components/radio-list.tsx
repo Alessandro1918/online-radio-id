@@ -1,17 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-
-type RadioProp = {
-  id: string,
-  name: string,
-  state: string,
-  country: string,
-  stream: string,
-  site: string,
-  icon: string,
-  frequency: string,
-  query: string,
-}
+import { RadioProp } from "../types/radio"
 
 // export async function RadioList() {
 export function RadioList() {
