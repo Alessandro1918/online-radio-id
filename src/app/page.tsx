@@ -1,7 +1,10 @@
+import { RadioList } from "./components/radio-list"
+
 export default function Home() {
+
   return (
     <div>
-      <p>Hello, world!</p>
+      <RadioList />
     </div>
   )
 }
