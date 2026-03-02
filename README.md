@@ -6,4 +6,12 @@
 
 Consulte quais músicas tocaram hoje nas suas estações de rádio favoritas!
 
-Site para exibição das músicas reconhecidas pela API [radio-id](https://github.com/Alessandro1918/radio-id), também desenvolvida por mim.
+Confira online em: [https://online-radio-id.vercel.app](https://online-radio-id.vercel.app)
+
+## 🧊 Cool features
+- Reconhecimento das músicas por API própria ([radio-id API](https://github.com/Alessandro1918/radio-id), também desenvolvida por mim).
+- Base de dados de rádios preferidas, atualizada minuto a minuto.
+- Exibição das músicas tocadas, classificadas por dia e hora.
+
+## ⭐ Like, Subscribe, Follow!
+Curtiu o projeto? Marque esse repositório com uma Estrela ⭐!
