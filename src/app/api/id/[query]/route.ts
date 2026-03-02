@@ -7,6 +7,15 @@ interface RequestProps {
    params: Promise<{ query: string }>
 }
 
+// Uppercase the first letter of every word in a string
+function capitalize(phrase: string): string{
+  return phrase
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
 // Adds a db record with the identified music details
 async function saveId(radio: string, artist: string, title: string) {
   const result = await db
@@ -39,12 +48,13 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
     const result = await response.json()
     if (response.status == 200) {
       console.log(`Music found! ${result.track.artist} - ${result.track.title}`)
+      // Only save current id if its different from previous id from the same radio
       const lastId = await getLastId(result.radio.id)
       if (
         lastId == undefined || 
         result.track.title != lastId.music_title
       ) {
-        await saveId(result.radio.id, result.track.artist, result.track.title)
+        await saveId(result.radio.id, capitalize(result.track.artist), capitalize(result.track.title))
       }
       return Response.json(result)
     } else {
