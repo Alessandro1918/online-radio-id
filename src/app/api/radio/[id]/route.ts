@@ -7,7 +7,8 @@ type RequestProps = {
    params: Promise<{ id: string }>
 }
 
-// Query the db for the list of all the saved radios
+// Query the db for the details of single radio
+// http://localhost:3000/api/radio/f0d81ba6-285c-4b93-97c9-4398d20c7797
 export async function GET(req: NextRequest, { params }: RequestProps) {
 
   const { id } = await params
