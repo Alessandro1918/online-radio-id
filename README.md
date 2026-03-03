@@ -10,7 +10,7 @@ Confira online em: [https://online-radio-id.vercel.app](https://online-radio-id.
 
 ## 🧊 Cool features
 - Reconhecimento das músicas por API própria ([radio-id API](https://github.com/Alessandro1918/radio-id), também desenvolvida por mim).
-- Base de dados de rádios preferidas, atualizada minuto a minuto.
+- Base de dados de rádios preferidas, com programação atualizada minuto a minuto.
 - Exibição das músicas tocadas, classificadas por dia e hora.
 
 ## ⭐ Like, Subscribe, Follow!
