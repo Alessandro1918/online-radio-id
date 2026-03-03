@@ -62,6 +62,6 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
     }
   } catch (err: any) {
     console.log(err.message)
-    return Response.json({message: err.message})
+    return Response.json({message: err.message}, { status: 404 })
   }
 }

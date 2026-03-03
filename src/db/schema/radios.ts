@@ -4,7 +4,7 @@ export const radios = pgTable("radios", {
   id: uuid().notNull().primaryKey(),
   name: text(),
   state: text(),
-  country: text(),
+  countrycode: text(),
   stream: text(),
   site: text(),
   icon: text(),

@@ -2,7 +2,7 @@ export type RadioProp = {
   id: string,
   name: string,
   state: string,
-  country: string,
+  countrycode: string,
   stream: string,
   site: string,
   icon: string,
