@@ -56,7 +56,7 @@ async function getLastId(radio: string) {
 export async function GET(request: NextRequest, { params }: RequestProps) {
   try {
     const radioId = (await params).radioId
-    const response = await fetch(`https://radio-id.vercel.app/api/v2/id/${radioId}`)
+    const response = await fetch(`http://localhost:4000/api/v2/id/${radioId}`)
     const result = await response.json()
     if (response.status == 200) {
       console.log(`Music found! ${result.track.artist} - ${result.track.title}`)
@@ -68,18 +68,18 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
       ) {
         await saveId(result.radio.id, capitalize(result.track.artist), capitalize(result.track.title))
       }
-      return Response.json(result, {status: 201})
+      return Response.json(result, {status: 201}) // 201 Created
     } else {
       console.log(result.message)
       // throw new Error(result.message)
-      throw new Error(String(response.status))
+      throw new Error(String(response.status))  // 404 Not found
     }
   } catch (err: any) {
-    console.log(err.message)
+    // console.log(err.message)
     // return Response.json({message: err.message}, {status: 404})
     switch (err.message) {
-      case "404": return Response.json({"message": "Error: Could not find the radio!"}, {status: 404}) // search error
-      case "204": return Response.json({"message": "Error: Music not recognized :("}, {status: 204}) // shazam error
+      case "400": return Response.json({"message": "Error: Could not find the radio!"}, {status: 400}) // search error
+      case "404": return Response.json({"message": "Error: Music not recognized :("}, {status: 404}) // shazam error
       default:    return Response.json({"message": `Error: ${err.message}`}, {status: 500})        // ffmpeg error
     }
   }
