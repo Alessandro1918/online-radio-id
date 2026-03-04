@@ -19,7 +19,6 @@ export default function RadioHistory() {
   const MAX_PAST_DAYS = 3     // enable history to go back from today + "n" past days
 
   const { id } = useParams()  // http://localhost:3000/radio/8e3429cd-6340-4248-8371-6540f3e9f7fe
-  console.log(id)
 
   async function getRadio(): Promise<RadioProp> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/radio/${id}`)

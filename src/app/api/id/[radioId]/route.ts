@@ -12,12 +12,19 @@ interface RequestProps {
 }
 
 // Uppercase the first letter of every word in a string
-function capitalize(phrase: string): string{
-  return phrase
-    .toLowerCase()
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+function capitalize(phrase: string): string {
+  // return phrase.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+  const lowerCasedStr = phrase.toLowerCase()
+  // The regex matches: 
+  // (^) the start of the string OR (\s) a whitespace character OR "\(" an open parenthesis, followed by (\w) a word character, OR
+  // (\.) a dot character followed by (\w) a word character (like the non-first letters of the acronyms "R.E.M." or "T.N.T.") 
+  const upperCasedStr = lowerCasedStr.replace(/(^|\s|\()\w|\.\w/g, match => {
+    return match.toUpperCase()
+  })
+  return upperCasedStr
+    .replace("Feat.", "feat.")
+    .replace("Ac/dc", "AC/DC")
+    .replace("Inxs", "INXS")
 }
 
 // Adds a db record with the identified music details
@@ -57,7 +64,7 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
       const lastId = await getLastId(result.radio.id)
       if (
         lastId == undefined || 
-        result.track.title != lastId.music_title
+        lastId.music_title != capitalize(result.track.title)
       ) {
         await saveId(result.radio.id, capitalize(result.track.artist), capitalize(result.track.title))
       }
@@ -67,6 +74,6 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
     }
   } catch (err: any) {
     console.log(err.message)
-    return Response.json({message: err.message}, { status: 404 })
+    return Response.json({message: err.message}, {status: 404})
   }
 }
