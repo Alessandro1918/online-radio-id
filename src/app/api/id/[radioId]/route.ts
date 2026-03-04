@@ -56,7 +56,7 @@ async function getLastId(radio: string) {
 export async function GET(request: NextRequest, { params }: RequestProps) {
   try {
     const radioId = (await params).radioId
-    const response = await fetch(`http://localhost:4000/api/v2/id/${radioId}`)
+    const response = await fetch(`https://radio-id.vercel.app/api/v2/id/${radioId}`)
     const result = await response.json()
     if (response.status == 200) {
       console.log(`Music found! ${result.track.artist} - ${result.track.title}`)
