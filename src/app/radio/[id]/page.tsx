@@ -77,7 +77,7 @@ export default function RadioHistory() {
       {/* Date picker */}
       <div className="flex items-center gap-8">
         <button 
-          disabled={today.diff(day, "day") > MAX_PAST_DAYS} // enabled for today + "n" past days
+          disabled={today.diff(day, "day") >= MAX_PAST_DAYS} // enabled for today + "n" past days
           onClick={() => setDay(day!.subtract(1, "day"))}
           className="text-4xl disabled:text-gray-300 dark:disabled:text-gray-700 cursor-pointer disabled:cursor-default"
         >
