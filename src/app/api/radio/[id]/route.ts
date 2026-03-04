@@ -17,5 +17,9 @@ export async function GET(req: NextRequest, { params }: RequestProps) {
     .select()
     .from(schema.radios)
     .where(eq(schema.radios.id, id))
-  return Response.json(result[0])
+  if (result.length > 0) {
+    return Response.json(result[0])
+  } else {
+    return Response.json([], {status: 404}) // Not found
+  }
 }

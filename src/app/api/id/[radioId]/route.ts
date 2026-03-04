@@ -68,12 +68,19 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
       ) {
         await saveId(result.radio.id, capitalize(result.track.artist), capitalize(result.track.title))
       }
-      return Response.json(result)
+      return Response.json(result, {status: 201})
     } else {
-      throw new Error(result.message)
+      console.log(result.message)
+      // throw new Error(result.message)
+      throw new Error(String(response.status))
     }
   } catch (err: any) {
     console.log(err.message)
-    return Response.json({message: err.message}, {status: 404})
+    // return Response.json({message: err.message}, {status: 404})
+    switch (err.message) {
+      case "404": return Response.json({"message": "Error: Could not find the radio!"}, {status: 404}) // search error
+      case "204": return Response.json({"message": "Error: Music not recognized :("}, {status: 204}) // shazam error
+      default:    return Response.json({"message": `Error: ${err.message}`}, {status: 500})        // ffmpeg error
+    }
   }
 }
