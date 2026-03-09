@@ -56,6 +56,7 @@ export default function RadioHistory() {
     // console.log("startTime:", startTime?.toISOString(), "endTime: ", endTime?.toISOString())
 
     try {
+      setIsHistoryLoading(true) 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime?.toISOString()}&end=${endTime?.toISOString()}`)
       if (response.status == 200) setIsHistoryLoading(false) 
       const data = await response.json()
@@ -69,6 +70,11 @@ export default function RadioHistory() {
   useEffect(() => {
     (async () => {
       setRadio(await getRadio())
+    })()
+  }, [])
+
+  useEffect(() => {
+    (async () => {
       setHistory(await getHistory())  //Optimization oportunity here: instead of re-do the getHistory query for every new day selected, query the whole last week instead and paginate the result day-by-day on the client side
     })()
   }, [day])
