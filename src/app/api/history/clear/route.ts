@@ -10,7 +10,7 @@ export async function DELETE(req: NextRequest) {
 
   const today = dayjs()
 
-  const MAX_PAST_DAYS = 7     // enable history to go back from today + "n" past days
+  const MAX_PAST_DAYS = 8     // enable history to go back from today + "n" past days
 
   await db
     .delete(schema.ids)
