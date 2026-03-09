@@ -33,12 +33,12 @@ export function RadioList() {
         :
           radios.map(e => {
             return (
-              <div key={e.id} className="flex flex-row items-center gap-2">
-                <img className="w-12 h-12 bg-gray-500" src={e.icon}/>
-                <a href={`/radio/${e.id}`}>
-                  <p className="text-green-500">{e.name}</p>
-                </a>
-              </div>
+              <a key={e.id} href={`/radio/${e.id}`}>
+                <div className="flex flex-row items-center gap-2">
+                  <img className="w-12 h-12" src={e.icon}/>
+                  <p>{e.name}</p>
+                </div>
+              </a>
             )
           })
       }
