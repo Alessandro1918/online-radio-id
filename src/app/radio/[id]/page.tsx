@@ -47,12 +47,9 @@ export default function RadioHistory() {
     // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime}&end=${endTime}`)
     // ...
 
-    //                              now: 2026-03-02T04:32:08.763Z (02/mar, 01h32)
-    const endTime = day?.endOf("day") // 2026-03-03T02:59:59.999Z (02/mar, 23h59)
-    const startTime = 
-      today.diff(day, "day") == 0     // selected day is today
-      ? endTime?.startOf("day")                        // 2026-03-02T03:00:00.000Z (02/mar, 00h00)
-      : endTime?.subtract(1, "day").add(1, "second")   // 2026-03-01T03:00:00.999Z (01/mar, 00h00), until 2026-03-02T02:59:59.999Z (01/mar, 23h59)
+    //                                      now: 2026-03-02T04:32:08.763Z (02/mar, 01h32)
+    const endTime = day?.endOf("day")         // 2026-03-03T02:59:59.999Z (02/mar, 23h59)
+    const startTime = endTime?.startOf("day") // 2026-03-02T03:00:00.000Z (02/mar, 00h00)
     // console.log("startTime:", startTime?.toISOString(), "endTime: ", endTime?.toISOString())
 
     try {

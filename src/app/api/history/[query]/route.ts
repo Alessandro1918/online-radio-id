@@ -22,7 +22,11 @@ export async function GET(req: NextRequest, { params }: RequestProps) {
   const query = (await params).query
   const filters = parseQuery(query)
   const result = await db
-    .select()
+    .select({
+      timestamp: schema.ids.timestamp,
+      music_artist: schema.ids.music_artist,
+      music_title: schema.ids.music_title,
+    })
     .from(schema.ids)
     .where(and(
       eq(schema.ids.radio, filters.radio),
@@ -30,6 +34,5 @@ export async function GET(req: NextRequest, { params }: RequestProps) {
       lt(schema.ids.timestamp, new Date(filters.end))
     ))
     .orderBy(desc(schema.ids.timestamp))
-  const filtered = result.map(({uuid, radio, ...rest}) => rest)
-  return Response.json(filtered)
+  return Response.json(result)
 }
