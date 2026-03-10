@@ -22,9 +22,6 @@ export default function RadioHistory() {
   const { id } = useParams()  // http://localhost:3000/radio/8e3429cd-6340-4248-8371-6540f3e9f7fe
 
   const [ day, setDay ] = useState<dayjs.Dayjs | null>(null)  // The selected day to query its history
-  useEffect(() => {
-    setDay(today) // update state with time values only on client-side, to avoid hidratation errors
-  }, [])
 
   const [ radio, setRadio ] = useState<RadioProp>()
 
@@ -53,7 +50,7 @@ export default function RadioHistory() {
     // console.log("startTime:", startTime?.toISOString(), "endTime: ", endTime?.toISOString())
 
     try {
-      setIsHistoryLoading(true) 
+      setIsHistoryLoading(true)
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime?.toISOString()}&end=${endTime?.toISOString()}`)
       if (response.status == 200) setIsHistoryLoading(false) 
       const data = await response.json()
@@ -68,11 +65,13 @@ export default function RadioHistory() {
     (async () => {
       setRadio(await getRadio())
     })()
+    // Update state with time values only on client-side, to avoid hidratation errors:
+    setDay(dayjs()) 
   }, [])
 
   useEffect(() => {
     (async () => {
-      setHistory(await getHistory())  //Optimization oportunity here: instead of re-do the getHistory query for every new day selected, query the whole last week instead and paginate the result day-by-day on the client side
+      setHistory(await getHistory())
     })()
   }, [day])
 

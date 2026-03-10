@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server"
 import { db } from "../../../../db/connection"
 import { schema } from "../../../../db/schema/index"
-import { eq, and, gt, lt, desc } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 
 type RequestProps = {
    params: Promise<{ id: string }>
