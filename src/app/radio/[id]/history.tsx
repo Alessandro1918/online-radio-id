@@ -8,10 +8,6 @@ import dayjs from "dayjs"
 import "dayjs/locale/pt-br"
 dayjs.locale("pt-br")
 
-// type PageProps = {
-//    params: Promise<{ id: string }> 
-// }
-
 export function RadioHistory() {
 
   // const today = new Date()
@@ -51,7 +47,8 @@ export function RadioHistory() {
 
     try {
       setIsHistoryLoading(true)
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime?.toISOString()}&end=${endTime?.toISOString()}`)
+      if (!id || !startTime || !endTime) throw new Error("Error: Missing params")
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history?radio=${id}&start=${startTime?.toISOString()}&end=${endTime?.toISOString()}`)
       if (response.status == 200) setIsHistoryLoading(false) 
       const data = await response.json()
       return data
