@@ -1,21 +1,8 @@
 import { NextRequest } from "next/server"
-import { db } from "../../../../db/connection"
-import { schema } from "../../../../db/schema/index"
+import { db } from "../../../db/connection"
+import { schema } from "../../../db/schema/index"
 import { eq, and, gt, lt, desc } from "drizzle-orm"
 import { cacheLife } from "next/cache"
-
-interface RequestProps {
-   params: Promise<{ query: string }> 
-}
-
-// query: "name=kiss_fm&countrycode=BR" => filters: { name: 'kiss_fm', countrycode: 'BR' }
-function parseQuery(query: string) {
-  const filters = {} as any
-  query.split("&").map(param => {
-    filters[param.split("=")[0]] = param.split("=")[1]
-  })
-  return filters
-}
 
 // Get how old the cached data can be (in seconds) and still be used
 function getRevalidateTime(start: Date, end: Date) {
@@ -28,9 +15,12 @@ function getRevalidateTime(start: Date, end: Date) {
 
 // The cache key automatically includes "radio", "start", "end", so every unique query window gets its own cached result.
 // (the front will call this route with start = "0h00" and end "23h59", so every cache file will have 24h)
-async function getIdsCached(radio: string, start: Date, end: Date) {
+async function getIdsCached(radio: string, startAsString: string, endAsString: string) {
   "use cache"
+  console.log("QUERYING THE DB...")
 
+  const start = new Date(startAsString)
+  const end = new Date(endAsString)
   const revalidate = getRevalidateTime(start, end)
   cacheLife({ revalidate })
 
@@ -50,14 +40,22 @@ async function getIdsCached(radio: string, start: Date, end: Date) {
 }
 
 // Query the db for all the records of a single radio, from a window of time
-// http://localhost:3000/api/history/radio=8e3429cd-6340-4248-8371-6540f3e9f7fe&start=2026-03-08T16:10:05.125Z&end=2026-03-09T16:25:05.125Z
-export async function GET(req: NextRequest, { params }: RequestProps) {
-  const query = (await params).query
-  const filters = parseQuery(query)
-  const start = new Date(filters.start)
-  const end = new Date(filters.end)
+// http://localhost:3000/api/history?radio=8e3429cd-6340-4248-8371-6540f3e9f7fe&start=2026-03-08T16:10:05.125Z&end=2026-03-09T16:25:05.125Z
+export async function GET(req: NextRequest) {
+  const radioId = req.nextUrl.searchParams.get("radio")
+  const start = req.nextUrl.searchParams.get("start")
+  const end = req.nextUrl.searchParams.get("end")
 
-  const result = await getIdsCached(filters.radio, start, end)
+  if (!radioId || !start || !end) {
+    return Response.json({"message": "Error: Missing params"}, {status: 400}) // Bad request
+  }
 
-  return Response.json(result)
+  const result = await getIdsCached(radioId, start, end)
+
+  return Response.json(
+    result, {
+      headers: {
+        "Size": `${Buffer.byteLength(JSON.stringify(result), "utf-8") / 1024 / 1024} Mb`,
+      }
+    })
 }
