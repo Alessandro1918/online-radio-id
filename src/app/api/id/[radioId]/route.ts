@@ -47,6 +47,7 @@ async function getLastId(radio: string) {
     .from(schema.ids)
     .where(eq(schema.ids.radio, radio))
     .orderBy(desc(schema.ids.timestamp))
+    .limit(1)
   return result[0]
 }
 
