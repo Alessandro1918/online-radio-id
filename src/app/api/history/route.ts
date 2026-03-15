@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
   return Response.json(
     result, {
       headers: {
-        "Size": `${Buffer.byteLength(JSON.stringify(result), "utf-8") / 1024 / 1024} Mb`,
+        "Size": `${(Buffer.byteLength(JSON.stringify(result), "utf-8") / 1024).toFixed(2) } KB`,
       }
     })
 }

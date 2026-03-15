@@ -78,7 +78,10 @@ export function RadioHistory() {
       {
         isRadioLoading
         ?
-          <span>...</span>
+          <div className="flex flex-row items-center gap-2 animate-pulse">
+            <div className="w-12 h-12 bg-zinc-300 rounded-lg"/>
+            <div className="w-20 h-6 bg-zinc-300 rounded-lg"></div>
+          </div>
         :
           <div className="flex flex-row items-center gap-2">
             <img className="w-12 h-12" src={radio ? radio.icon : "-"}/>
@@ -106,33 +109,35 @@ export function RadioHistory() {
       </div>
 
       {/* List of IDs */}
-      <div>
-      {
-        isHistoryLoading
-        ?
-          <span>Carregando...</span>
-        :
-          history.length > 0 
+      <div className="flex flex-col gap-1 p-2 w-96 border-2 border-zinc-200 rounded-xl shadow-xl">
+        {
+          isHistoryLoading
           ?
-            <div className="flex flex-col gap-1 p-2 max-w-96 border-2 border-zinc-200 rounded-xl shadow-xl">
-              {
-                history.map((e, i) => {
-                  return (
-                    <div key={i} className="flex flex-col justify-center p-0.5">
-                      <span>{
-                        `${dayjs(e.timestamp).format("HH:mm")}` + " " +
-                        e.music_artist + " - " + 
-                        e.music_title
-                      }</span>
-                      <div className="w-full h-px bg-zinc-200"></div>
-                    </div>
-                  )
-                })
-              }
+            <div className="animate-pulse">
+              {[...Array(5)].map((e, i) => {
+                return (
+                  <div key={i} className="my-3 w-91 h-7 bg-zinc-300 rounded-lg"></div>
+                )
+              })}
             </div>
           :
-            <span>Nada salvo nesse dia!</span>
-      }
+            history.length > 0 
+            ?
+              history.map((e, i) => {
+                return (
+                  <div key={i} className="flex flex-col justify-center p-0.5">
+                    <span>{
+                      `${dayjs(e.timestamp).format("HH:mm")}` + " " +
+                      e.music_artist + " - " + 
+                      e.music_title
+                    }</span>
+                    <div className="w-full h-px bg-zinc-200"></div>
+                  </div>
+                )
+              })
+            :
+              <span className="mx-auto">Nada salvo nesse dia!</span>
+        }
       </div>
       {/* <pre>
         {JSON.stringify(history, null, 2)}
