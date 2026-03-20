@@ -3,10 +3,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { RadioProp } from "../../types/radio"
 import { IdProp } from "../../types/id"
-
-import dayjs from "dayjs"
-import "dayjs/locale/pt-br"
-dayjs.locale("pt-br")
+import dayjs from "../../libs/dayjs"
 
 export function RadioHistory() {
 
@@ -113,13 +110,11 @@ export function RadioHistory() {
         {
           isHistoryLoading
           ?
-            <div className="animate-pulse">
-              {[...Array(5)].map((e, i) => {
-                return (
-                  <div key={i} className="my-3 w-91 h-7 bg-zinc-300 rounded-lg"></div>
-                )
-              })}
-            </div>
+            [...Array(5)].map((_, i) => {
+              return (
+                <div key={i} className="my-2 mx-auto w-90 h-6 bg-zinc-300 rounded-lg animate-pulse"></div>
+              )
+            })
           :
             history.length > 0 
             ?
