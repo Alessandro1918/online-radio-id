@@ -3,10 +3,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { RadioProp } from "../../types/radio"
 import { IdProp } from "../../types/id"
-
-import dayjs from "dayjs"
-import "dayjs/locale/pt-br"
-dayjs.locale("pt-br")
+import dayjs from "../../libs/dayjs"
 
 export function RadioHistory() {
 

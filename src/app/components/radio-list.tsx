@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { RadioProp } from "../types/radio"
+import dayjs from "../libs/dayjs"
 
 // export async function RadioList() {
 export function RadioList() {
@@ -25,26 +26,56 @@ export function RadioList() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-1 p-2 w-48 border-2 border-zinc-200 rounded-xl shadow-xl">
+    <div className="flex flex-col gap-1 p-2 w-96 border-2 border-zinc-200 rounded-xl shadow-xl">
       {
         isLoading
         ?
           [...Array(4)].map((_, i) => {
             return (
-              <div key={i} className="my-2 flex flex-row items-center gap-2 animate-pulse">
-                <div className="w-12 h-12 bg-zinc-300 rounded-lg"/>
-                <div className="w-30 h-6 bg-zinc-300 rounded-lg"></div>
+              <div key={i} className="flex flex-col justify-center p-0.5 animate-pulse">
+                <div className="flex flex-row items-center gap-2">
+                  <div className="w-12 h-12 bg-zinc-300 rounded-lg"/>
+                  <div className="w-30 h-6 bg-zinc-300 rounded-lg"></div>
+                </div>
+                <div className="mt-2 w-full h-px bg-zinc-200"></div>
               </div>
             )
           })
         :
           radios.map(e => {
+            const now = dayjs()
+            const timeDiffinMinutes = now.diff(dayjs.utc(e.playing.timestamp), "minute")
             return (
               <a key={e.id} href={`/radio/${e.id}`}>
                 <div className="flex flex-col justify-center p-0.5">
                   <div className="flex flex-row items-center gap-2">
                     <img className="w-12 h-12" src={e.icon}/>
-                    <p>{e.name}</p>
+                    <div className="flex flex-col min-w-0">
+                      <p>{e.name}</p>
+                      <div className="flex flex-row items-center gap-1">
+                        <div>
+                          {
+                            timeDiffinMinutes < 5
+                            ? <div className="size-3 rounded-full bg-radial-[at_75%_25%] from-green-200 to-green-600 to-50% border-2 border-green-800"></div>
+                            : timeDiffinMinutes < 5 * 30  //  minutes/query * n failures until cron job is disabled
+                            ? <div className="size-3 rounded-full bg-radial-[at_75%_25%] from-yellow-200 to-yellow-600 to-50% border-2 border-yellow-800"></div>
+                            : <div className="size-3 rounded-full bg-radial-[at_75%_25%] from-red-200 to-red-600 to-50% border-2 border-red-800"></div>
+                          }
+                        </div>
+                        <span className="text-zinc-600 text-sm font-extralight shrink-0 whitespace-nowrap">
+                          {
+                            timeDiffinMinutes < 1 
+                            ? "Agora" 
+                            : timeDiffinMinutes < 5 * 30  //  minutes/query * n failures until cron job is disabled 
+                            ? `Há ${timeDiffinMinutes} min` 
+                            : "Erro"
+                          }
+                        </span>
+                        <span className="text-zinc-600 text-sm font-normal truncate min-w-0 ml-1">
+                          {timeDiffinMinutes < 30 && `${e.playing.music_artist} - ${e.playing.music_title}`}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <div className="mt-2 w-full h-px bg-zinc-200"></div>
                 </div>
