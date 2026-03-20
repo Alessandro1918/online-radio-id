@@ -29,7 +29,7 @@ export function RadioList() {
       {
         isLoading
         ?
-          [...Array(4)].map((e, i) => {
+          [...Array(4)].map((_, i) => {
             return (
               <div key={i} className="my-2 flex flex-row items-center gap-2 animate-pulse">
                 <div className="w-12 h-12 bg-zinc-300 rounded-lg"/>

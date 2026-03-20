@@ -113,13 +113,11 @@ export function RadioHistory() {
         {
           isHistoryLoading
           ?
-            <div className="animate-pulse">
-              {[...Array(5)].map((e, i) => {
-                return (
-                  <div key={i} className="my-3 w-91 h-7 bg-zinc-300 rounded-lg"></div>
-                )
-              })}
-            </div>
+            [...Array(5)].map((_, i) => {
+              return (
+                <div key={i} className="my-2 mx-auto w-90 h-6 bg-zinc-300 rounded-lg animate-pulse"></div>
+              )
+            })
           :
             history.length > 0 
             ?
