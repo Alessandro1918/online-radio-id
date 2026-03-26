@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   // const result = await db
   //   .select()
   //   .from(schema.radios)
-const result = await db.execute(sql`
+  const result = await db.execute(sql`
     SELECT
       r.*,
       json_build_object(

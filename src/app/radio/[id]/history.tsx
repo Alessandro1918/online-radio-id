@@ -1,8 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
-import { RadioProp } from "../../types/radio"
-import { IdProp } from "../../types/id"
+import { RadioProps } from "../../types/radio"
+import { HistoryProps } from "../../types/history"
 import dayjs from "../../libs/dayjs"
 
 export function RadioHistory() {
@@ -16,22 +16,22 @@ export function RadioHistory() {
 
   const [ selectedDay, setSelectedDay ] = useState<dayjs.Dayjs | null>(null)
 
-  const [ radio, setRadio ] = useState<RadioProp>()
+  const [ radio, setRadio ] = useState<RadioProps>()
 
-  const [ history, setHistory ] = useState<IdProp[]>([])
+  const [ history, setHistory ] = useState<HistoryProps[]>([])
 
   const [ isRadioLoading, setIsRadioLoading ] = useState(true)
   
   const [ isHistoryLoading, setIsHistoryLoading ] = useState(true)
 
-  async function getRadio(): Promise<RadioProp> {
+  async function getRadio(): Promise<RadioProps> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/radio/${id}`)
     if (response.status == 200) setIsRadioLoading(false) 
     const data = await response.json()
     return data
   }
 
-  async function getHistory(): Promise<IdProp[]> {
+  async function getHistory(): Promise<HistoryProps[]> {
     // const endTime = "2026-02-27T20:00:00.125Z"
     // const startTime = "2026-02-26T19:00:00.125Z"
     // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime}&end=${endTime}`)
