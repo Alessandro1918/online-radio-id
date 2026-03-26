@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { RadioProps } from "../../types/radio"
 import { HistoryProps } from "../../types/history"
+import { getRadio } from "../../services/get-radio"
+import { getHistory } from "../../services/get-history"
 import dayjs from "../../libs/dayjs"
 
 export function RadioHistory() {
@@ -24,40 +26,10 @@ export function RadioHistory() {
   
   const [ isHistoryLoading, setIsHistoryLoading ] = useState(true)
 
-  async function getRadio(): Promise<RadioProps> {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/radio/${id}`)
-    if (response.status == 200) setIsRadioLoading(false) 
-    const data = await response.json()
-    return data
-  }
-
-  async function getHistory(): Promise<HistoryProps[]> {
-    // const endTime = "2026-02-27T20:00:00.125Z"
-    // const startTime = "2026-02-26T19:00:00.125Z"
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime}&end=${endTime}`)
-    // ...
-
-    //                                      now: 2026-03-02T04:32:08.763Z (02/mar, 01h32)
-    const endTime = selectedDay?.endOf("day") // 2026-03-03T02:59:59.999Z (02/mar, 23h59)
-    const startTime = endTime?.startOf("day") // 2026-03-02T03:00:00.000Z (02/mar, 00h00)
-    // console.log("startTime:", startTime?.toISOString(), "endTime: ", endTime?.toISOString())
-
-    try {
-      setIsHistoryLoading(true)
-      if (!id || !startTime || !endTime) throw new Error("Error: Missing params")
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history?radio=${id}&start=${startTime?.toISOString()}&end=${endTime?.toISOString()}`)
-      if (response.status == 200) setIsHistoryLoading(false) 
-      const data = await response.json()
-      return data
-    } catch (err) {
-      console.log(err)
-      return []
-    }
-  }
-
   useEffect(() => {
     (async () => {
-      setRadio(await getRadio())
+      setRadio(await getRadio(String(id)))
+      setIsRadioLoading(false) 
     })()
     // Update state with time values only on client-side, to avoid hidratation errors:
     setSelectedDay(dayjs()) 
@@ -65,7 +37,9 @@ export function RadioHistory() {
 
   useEffect(() => {
     (async () => {
-      setHistory(await getHistory())
+      setIsHistoryLoading(true)
+      setHistory(await getHistory(String(id), selectedDay!))
+      setIsHistoryLoading(false) 
     })()
   }, [selectedDay])
 
