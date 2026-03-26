@@ -1,16 +1,16 @@
 "use client"
 import { useState, useEffect } from "react"
-import { RadioProp } from "../types/radio"
+import { RadioProps } from "../types/radio"
 import dayjs from "../libs/dayjs"
 
 // export async function RadioList() {
 export function RadioList() {
 
-  const [ radios, setRadios ] = useState<RadioProp[]>([])
+  const [ radios, setRadios ] = useState<RadioProps[]>([])
 
   const [ isLoading, setIsLoading ] = useState(true)
 
-  async function getRadios(): Promise<RadioProp[]> {
+  async function getRadios(): Promise<RadioProps[]> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/radios`)
     if (response.status == 200) setIsLoading(false)
     const data = await response.json()

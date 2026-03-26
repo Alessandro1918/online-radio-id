@@ -1,4 +1,4 @@
-export type RadioProp = {
+export type RadioProps = {
   id: string,
   name: string,
   state: string,

@@ -5,6 +5,7 @@ import { NextRequest } from "next/server"
 import { db } from "../../../../db/connection"
 import { schema } from "../../../../db/schema/index"
 import { eq, desc } from "drizzle-orm"
+import { IDResponseProps } from "@/src/app/types/id"
 
 interface RequestProps {
   // params: Promise<{ query: string }>   // v1
@@ -25,6 +26,7 @@ function capitalize(phrase: string): string {
     .replace("Feat.", "feat.")
     .replace("Ac/dc", "AC/DC")
     .replace("Inxs", "INXS")
+    .replace("Zz Top", "ZZ Top")
 }
 
 // Adds a db record with the identified music details
@@ -58,22 +60,26 @@ export async function GET(request: NextRequest, { params }: RequestProps) {
   try {
     const radioId = (await params).radioId
     const response = await fetch(`https://radio-id.vercel.app/api/v2/id/${radioId}`)
-    const result = await response.json()
+    const result = await response.json() as IDResponseProps
+
     if (response.status == 200) {
       console.log(`Music found! ${result.track.artist} - ${result.track.title}`)
-      // Only save current id if its different from previous id from the same radio
+
+      // Only save current ID if its different from previous ID from the same radio
       const lastId = await getLastId(result.radio.id)
       if (
         lastId == undefined || 
         lastId.music_title != capitalize(result.track.title)
       ) {
         await saveId(result.radio.id, capitalize(result.track.artist), capitalize(result.track.title))
-      }
-      return Response.json(result, {status: 201}) // 201 Created
+        return Response.json(result, {status: 201}) // 201 Created
+      } else {
+        return Response.json(result, {status: 200}) // 200 OK
+      }      
     } else {
       console.log(result.message)
       // throw new Error(result.message)
-      throw new Error(String(response.status))  // 404 Not found
+      throw new Error(String(response.status))  // 400 - 404
     }
   } catch (err: any) {
     // console.log(err.message)
