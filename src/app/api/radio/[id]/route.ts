@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server"
 import { db } from "../../../../db/connection"
 import { schema } from "../../../../db/schema/index"
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 
 type RequestProps = {
    params: Promise<{ id: string }>
@@ -13,10 +13,29 @@ export async function GET(req: NextRequest, { params }: RequestProps) {
 
   const { id } = await params
 
-  const result = await db
-    .select()
-    .from(schema.radios)
-    .where(eq(schema.radios.id, id))
+  // const result = await db
+  //   .select()
+  //   .from(schema.radios)
+  //   .where(eq(schema.radios.id, id))
+  const result = await db.execute(sql`
+    SELECT
+      r.*,
+      json_build_object(
+        'music_artist', i.music_artist,
+        'music_title', i.music_title,
+        'timestamp', i.timestamp
+      ) AS "last_played"
+    FROM radios r
+    LEFT JOIN LATERAL (
+      SELECT music_artist, music_title, timestamp
+      FROM ids
+      WHERE ids.radio = r.id
+      ORDER BY timestamp DESC
+      LIMIT 1
+    ) i ON true
+    WHERE r.id = ${id}
+  `)
+
   if (result.length > 0) {
     return Response.json(result[0])
   } else {
