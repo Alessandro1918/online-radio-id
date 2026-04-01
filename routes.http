@@ -1,0 +1,26 @@
+###
+# Radios
+# Query the db for the list of all the saved radios
+GET http://localhost:3000/api/radios
+
+###
+# Radio
+# Query the db for the details of single radio
+GET http://localhost:3000/api/radio/f0d81ba6-285c-4b93-97c9-4398d20c7797
+
+###
+# ID
+# Uses the "radio-id" API to search for a radio, recognize the music currently playing, and save it as a new record in the db
+# v1
+GET http://localhost:3000/api/id?name=kiss_fm&countrycode=BR
+###
+# v2
+GET http://localhost:3000/api/id/f0d81ba6-285c-4b93-97c9-4398d20c7797
+
+###
+# History
+# Query the db for all the records of a single radio, from a window of time
+GET http://localhost:3000/api/history?radio=8e3429cd-6340-4248-8371-6540f3e9f7fe&start=2026-03-08T16:10:05.125Z&end=2026-03-09T16:25:05.125Z
+###
+# Delete all the db records older than "n" days
+DELETE http://localhost:3000/api/history/clear

@@ -17,7 +17,13 @@ export type IDResponseProps = {
     countrycode: string,
     stream: string,
     site: string,
-    icon: string
+    icon: string,
+    // v2 (v1 + this):
+    last_played?: {
+      timestamp: string,
+      music_title: string,
+      music_artist: string
+    }
   }
 
   // Status != 200:
