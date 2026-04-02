@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { HistoryProps } from "../../types/history"
 import { getHistory } from "../../services/get-history"
+import { HistoryItemSkeleton } from "./history-item-skeleton"
+import { HistoryItem } from "./history-item"
 import dayjs from "../../libs/dayjs"
 
 export function History() {
@@ -62,7 +64,7 @@ export function History() {
           ?
             [...Array(5)].map((_, i) => {
               return (
-                <div key={i} className="my-2 mx-auto w-90 h-6 bg-zinc-300 rounded-lg animate-pulse"></div>
+                <HistoryItemSkeleton key={i} />
               )
             })
           :
@@ -70,14 +72,14 @@ export function History() {
             ?
               history.map((e, i) => {
                 return (
-                  <div key={i} className="flex flex-col justify-center p-0.5">
-                    <span>{
-                      `${dayjs(e.timestamp).format("HH:mm")}` + " " +
-                      e.music_artist + " - " + 
-                      e.music_title
-                    }</span>
-                    <div className="w-full h-px bg-zinc-200"></div>
-                  </div>
+                  <HistoryItem 
+                    key={i}
+                    uuid={e.uuid}
+                    timestamp={e.timestamp}
+                    radio={e.radio}
+                    music_artist={e.music_artist}
+                    music_title={e.music_title}
+                  />
                 )
               })
             :
