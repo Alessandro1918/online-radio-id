@@ -1,10 +1,17 @@
 import { Suspense } from "react"
-import { RadioHistory } from "./history"
+import { Details } from "./details"
+import { History } from "./history"
 
 export default function Page() {
   return (
-    <Suspense fallback={<span>Loading...</span>}>
-      <RadioHistory />
-    </Suspense>
+    <div className="flex flex-col items-center justify-center gap-2 my-4">
+      <Suspense>
+        <Details />
+      </Suspense>
+
+      <Suspense>
+        <History />
+      </Suspense>
+    </div>
   )
 }
