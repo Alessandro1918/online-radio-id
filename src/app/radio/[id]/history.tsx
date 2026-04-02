@@ -72,14 +72,7 @@ export function History() {
             ?
               history.map((e, i) => {
                 return (
-                  <HistoryItem 
-                    key={i}
-                    uuid={e.uuid}
-                    timestamp={e.timestamp}
-                    radio={e.radio}
-                    music_artist={e.music_artist}
-                    music_title={e.music_title}
-                  />
+                  <HistoryItem key={i} {...e} />
                 )
               })
             :
