@@ -1,6 +1,7 @@
 export type RadioProps = {
   id: string,
   name: string,
+  city: string,
   state: string,
   countrycode: string,
   stream: string,
