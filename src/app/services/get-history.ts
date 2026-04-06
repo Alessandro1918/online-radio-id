@@ -1,7 +1,7 @@
 import dayjs from "../libs/dayjs"
-import { HistoryProps } from "../types/history"
+import { IdProps } from "../types/id"
 
-export async function getHistory(radioId: string, selectedDay: dayjs.Dayjs): Promise<HistoryProps[]> {
+export async function getHistory(radioId: string, selectedDay: dayjs.Dayjs): Promise<IdProps[]> {
   // const endTime = "2026-02-27T20:00:00.125Z"
   // const startTime = "2026-02-26T19:00:00.125Z"
   // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/history/radio=${id}&start=${startTime}&end=${endTime}`)

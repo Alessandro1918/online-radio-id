@@ -3,6 +3,7 @@ import { pgTable, uuid, text  } from "drizzle-orm/pg-core"
 export const radios = pgTable("radios", {
   id: uuid().notNull().primaryKey(),
   name: text(),
+  city: text(),
   state: text(),
   countrycode: text(),
   stream: text(),

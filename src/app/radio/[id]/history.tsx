@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
-import { HistoryProps } from "../../types/history"
+import { IdProps } from "../../types/id"
 import { getHistory } from "../../services/get-history"
 import { HistoryItemSkeleton } from "./history-item-skeleton"
 import { HistoryItem } from "./history-item"
@@ -18,7 +18,7 @@ export function History() {
 
   const [ selectedDay, setSelectedDay ] = useState<dayjs.Dayjs | null>(null)
 
-  const [ history, setHistory ] = useState<HistoryProps[]>([])
+  const [ history, setHistory ] = useState<IdProps[]>([])
   
   const [ isHistoryLoading, setIsHistoryLoading ] = useState(true)
 
