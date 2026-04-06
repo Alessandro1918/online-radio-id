@@ -1,7 +1,7 @@
-import { HistoryProps } from "../../types/history"
+import { IdProps } from "../../types/id"
 import dayjs from "../../libs/dayjs"
 
-export function HistoryItem(props: HistoryProps) {
+export function HistoryItem(props: IdProps) {
   return (
     <div className="flex flex-col justify-center p-0.5">
       <span>{

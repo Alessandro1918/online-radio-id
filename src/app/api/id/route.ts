@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server"
-import { IDResponseProps } from "@/src/app/types/id"
+import { IDResponseProps } from "@/src/app/types/id-response"
 import { capitalize } from "../services/capitalize"
 import { getLastId } from "../services/get-last-id"
 import { saveId } from "../services/save-id"
