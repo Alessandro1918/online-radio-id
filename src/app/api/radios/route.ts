@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
       ORDER BY timestamp DESC
       LIMIT 1
     ) i ON true
+    ORDER BY r.countrycode ASC, r.state ASC, r.city ASC, r.name ASC
   `)
 
   return Response.json(result)
