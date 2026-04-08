@@ -1,4 +1,19 @@
+import type { Metadata } from "next"
 import { RadioList } from "./components/radio-list"
+
+export const metadata: Metadata = {
+  title: "Online Radio ID",
+  description: "Confira online a programação de suas estações de rádio favoritas!",
+  openGraph: {
+    title: "Online Radio ID",
+    description: "Confira online a programação de suas estações de rádio favoritas!",
+    images: [{
+      width: 256,
+      height: 256,
+      url: "/assets/opengraph-image.png",
+    }],
+  }
+}
 
 export default function Home() {
 
