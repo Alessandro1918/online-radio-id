@@ -22,7 +22,7 @@ export function NowPlaying(props: NowPlayingProps) {
           : <div className="size-3 rounded-full bg-radial-[at_75%_25%] from-red-200 to-red-600 to-50% border-2 border-red-800"></div>
         }
       </div>
-      <span className="text-zinc-600 text-sm font-extralight shrink-0 whitespace-nowrap">
+      <span className="text-zinc-600 text-sm shrink-0 whitespace-nowrap">
         {
           timeDiffinMinutes < 1 
           ? "Agora" 
@@ -31,7 +31,7 @@ export function NowPlaying(props: NowPlayingProps) {
           : "Erro"
         }
       </span>
-      <span className="text-zinc-600 text-sm font-normal truncate min-w-0 ml-1">
+      <span className="text-zinc-600 text-sm truncate min-w-0 ml-1">
         {timeDiffinMinutes < 5 * 30 && `${props.music_artist} - ${props.music_title}`}
       </span>
     </div>

@@ -1,5 +1,6 @@
 import { RadioProps } from "../types/radio"
 import { NowPlaying } from "./now-playing"
+import ReactCountryFlag from "react-country-flag"
 
 export function RadioItem(props: RadioProps) {
 
@@ -8,8 +9,16 @@ export function RadioItem(props: RadioProps) {
       <div className="flex flex-col justify-center p-0.5">
         <div className="flex flex-row items-center gap-2">
           <img className="w-12 h-12" src={props.icon}/>
-          <div className="flex flex-col min-w-0">
-            <p>{props.name}</p>
+          <div className="flex flex-col w-full min-w-0">
+            <div className="flex flex-row items-center justify-between">
+              <span>{props.name}</span>
+              <div className="flex flex-row">
+                <span className="text-zinc-600 text-[10px] mr-2">
+                  {`${props.city} - ${props.state}`}
+                </span>
+                <ReactCountryFlag countryCode={props.countrycode} />
+              </div>
+            </div>
             <NowPlaying {...props.playing}/>
           </div>
         </div>
