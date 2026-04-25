@@ -21,11 +21,11 @@ export function RadioList() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-1 p-2 w-96 border-2 border-zinc-200 rounded-xl shadow-xl">
+    <div className="flex flex-col gap-1 p-2 w-96 h-100 overflow-auto border-2 border-zinc-200 rounded-xl shadow-xl">
       {
         isLoading
         ?
-          [...Array(4)].map((_, i) => {
+          [...Array(6)].map((_, i) => {
             return (
               <RadioItemSkeleton key={i} />
             )
