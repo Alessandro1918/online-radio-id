@@ -12,8 +12,8 @@ export function RadioItem(props: RadioProps) {
           <div className="flex flex-col w-full min-w-0">
             <div className="flex flex-row items-center justify-between">
               <span>{props.name}</span>
-              <div className="flex flex-row">
-                <span className="text-zinc-600 text-[10px] mr-2">
+              <div className="flex flex-row gap-2">
+                <span className="text-zinc-600 text-[10px]">
                   {`${props.city} - ${props.state}`}
                 </span>
                 <ReactCountryFlag countryCode={props.countrycode} />

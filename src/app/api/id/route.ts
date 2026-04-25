@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   try {
     // v1
     const searchParams = request.nextUrl.search.split("?")[1]
-    const response = await fetch(`https://radio-id.vercel.app/api/v1/id?${searchParams}`)
+    const response = await fetch(`${process.env.RADIO_ID_API_BASE_URL}/api/v1/id?${searchParams}`)
     const result = await response.json() as IDResponseProps
 
     if (response.status == 200) {
