@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
         'music_artist', i.music_artist,
         'music_title', i.music_title,
         'timestamp', i.timestamp
-      ) AS "playing"
+      ) AS "last_played"
     FROM radios r
     LEFT JOIN LATERAL (
       SELECT music_artist, music_title, timestamp

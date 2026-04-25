@@ -9,7 +9,7 @@ export type RadioProps = {
   icon: string,
   frequency: string,
   query: string,
-  playing: {
+  last_played: {
     timestamp: string,
     music_artist: string,
     music_title: string

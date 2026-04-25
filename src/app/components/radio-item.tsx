@@ -19,7 +19,7 @@ export function RadioItem(props: RadioProps) {
                 <ReactCountryFlag countryCode={props.countrycode} />
               </div>
             </div>
-            <NowPlaying {...props.playing}/>
+            <NowPlaying {...props.last_played}/>
           </div>
         </div>
         <div className="mt-2 w-full h-px bg-zinc-200"></div>
