@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { Details } from "./details"
 import { History } from "./history"
 import { getRadio } from "../../services/get-radio"
+import { Header } from "../../components/header"
+import { Footer } from "../../components/footer"
 
 type Props = {
   params: Promise<{ id: string }>,                             //dynamic route parameters ("/shop/1" => { slug: '1'})
@@ -27,7 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 my-4">
+    <div className="flex flex-col gap-4 w-full min-h-screen items-center">
+      <Header />
       <Suspense>
         <Details />
       </Suspense>
@@ -35,6 +38,7 @@ export default function Page() {
       <Suspense>
         <History />
       </Suspense>
+      <Footer />
     </div>
   )
 }
