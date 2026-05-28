@@ -31,7 +31,7 @@ export function Details() {
         :
           <div className="flex flex-row items-center gap-2">
             <img className="w-12 h-12" src={radio ? radio.icon : "-"}/>
-            <p className="text-xl">{radio ? radio.name : "-"}</p>
+            <p className="text-xl">{radio ? `${radio.frequency} FM - ${radio.name}` : "-"}</p>
           </div>
       }
     </div>

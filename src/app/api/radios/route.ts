@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
       ORDER BY timestamp DESC
       LIMIT 1
     ) i ON true
-    ORDER BY r.countrycode ASC, r.state ASC, r.city ASC, r.name ASC
+    ORDER BY r.countrycode ASC, r.state ASC, r.city ASC, CAST(r.frequency AS DECIMAL(10, 2)) ASC
   `)
 
   return Response.json(result)
