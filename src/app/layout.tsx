@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 export default function RootLayout({
@@ -11,6 +12,7 @@ export default function RootLayout({
         className={`antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   )
