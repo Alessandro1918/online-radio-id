@@ -11,7 +11,7 @@ export function RadioItem(props: RadioProps) {
           <img className="w-12 h-12" src={props.icon}/>
           <div className="flex flex-col w-full min-w-0">
             <div className="flex flex-row items-center justify-between">
-              <span>{props.name}</span>
+              <span>{props.frequency} FM - {props.name}</span>
               <div className="flex flex-row gap-2">
                 <span className="text-zinc-600 text-[10px]">
                   {`${props.city} - ${props.state}`}
