@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { RadioProps } from "../../types/radio"
 import { getRadio } from "../../services/get-radio"
+import { ShareButton } from "./share-button"
 
 export function Details() {
 
@@ -26,12 +27,17 @@ export function Details() {
         ?
           <div className="flex flex-row items-center gap-2 animate-pulse">
             <div className="w-12 h-12 bg-zinc-300 rounded-lg"/>
-            <div className="w-20 h-6 bg-zinc-300 rounded-lg"></div>
+            <div className="w-36 h-6 bg-zinc-300 rounded-lg"></div>
           </div>
         :
           <div className="flex flex-row items-center gap-2">
-            <img className="w-12 h-12" src={radio ? radio.icon : "-"}/>
-            <p className="text-xl">{radio ? `${radio.frequency} FM - ${radio.name}` : "-"}</p>
+            <img className="w-12 h-12" src={radio!.icon}/>
+            <p className="text-xl">{`${radio!.frequency} FM - ${radio!.name}`}</p>
+            <ShareButton 
+              title={`${radio!.name} | Online Radio ID`}
+              text={`${radio!.name} | Programação 24h`}
+              url={window.location.href}
+            />
           </div>
       }
     </div>
