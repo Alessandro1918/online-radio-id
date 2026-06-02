@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 import { RadioProps } from "../../types/radio"
 import { getRadio } from "../../services/get-radio"
 import { ShareButton } from "./share-button"
+import { Play } from "./play"
 
 export function Details() {
 
@@ -25,22 +26,28 @@ export function Details() {
       {
         isRadioLoading
         ?
-          <div className="flex flex-row items-center gap-2 animate-pulse">
-            <div className="w-12 h-12 bg-zinc-300 rounded-lg"/>
-            <div className="w-36 h-6 bg-zinc-300 rounded-lg"></div>
+          <div className="flex flex-col items-center gap-4 animate-pulse">
+            <div className="flex flex-row items-center gap-2">
+              <div className="w-12 h-12 bg-zinc-300 rounded-lg"/> {/* icon */}
+              <div className="w-36 h-6 bg-zinc-300 rounded-lg"/>  {/* name */}
+            </div>
+            <div className="w-64 h-8 bg-zinc-300 rounded-lg"/>    {/* play */}
           </div>
         :
-          <div className="w-96 flex flex-row items-center justify-between gap-2">
-            <div className="size-5"></div>  {/* ShareButton opposite */}
-            <div className="flex flex-row items-center">
-              <img className="w-12 h-12" src={radio!.icon}/>
-              <p className="text-xl">{`${radio!.frequency} FM - ${radio!.name}`}</p>
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-96 flex flex-row items-center justify-between">
+              <div className="size-5"/>  {/* ShareButton opposite placeholder */}
+              <div className="flex flex-row items-center gap-2">
+                <img className="w-12 h-12" src={radio!.icon}/>
+                <p className="text-xl">{`${radio!.frequency} FM - ${radio!.name}`}</p>
+              </div>
+              <ShareButton 
+                title={`${radio!.name} | Online Radio ID`}
+                // text={`${radio!.name} | Programação 24h`}
+                url={window.location.href}
+              />
             </div>
-            <ShareButton 
-              title={`${radio!.name} | Online Radio ID`}
-              // text={`${radio!.name} | Programação 24h`}
-              url={window.location.href}
-            />
+            <Play src={radio!.stream} />
           </div>
       }
     </div>
