@@ -30,9 +30,12 @@ export function Details() {
             <div className="w-36 h-6 bg-zinc-300 rounded-lg"></div>
           </div>
         :
-          <div className="flex flex-row items-center gap-2">
-            <img className="w-12 h-12" src={radio!.icon}/>
-            <p className="text-xl">{`${radio!.frequency} FM - ${radio!.name}`}</p>
+          <div className="w-96 flex flex-row items-center justify-between gap-2">
+            <div className="size-5"></div>  {/* ShareButton opposite */}
+            <div className="flex flex-row items-center">
+              <img className="w-12 h-12" src={radio!.icon}/>
+              <p className="text-xl">{`${radio!.frequency} FM - ${radio!.name}`}</p>
+            </div>
             <ShareButton 
               title={`${radio!.name} | Online Radio ID`}
               // text={`${radio!.name} | Programação 24h`}
