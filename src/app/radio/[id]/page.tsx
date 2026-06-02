@@ -1,9 +1,9 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
-import { Details } from "./details"
-import { History } from "./history"
 import { getRadio } from "../../services/get-radio"
 import { Header } from "../../components/header"
+import { Details } from "./details"
+import { History } from "./history"
 import { Footer } from "../../components/footer"
 
 type Props = {
