@@ -35,7 +35,7 @@ export function Details() {
             <p className="text-xl">{`${radio!.frequency} FM - ${radio!.name}`}</p>
             <ShareButton 
               title={`${radio!.name} | Online Radio ID`}
-              text={`${radio!.name} | Programação 24h`}
+              // text={`${radio!.name} | Programação 24h`}
               url={window.location.href}
             />
           </div>
