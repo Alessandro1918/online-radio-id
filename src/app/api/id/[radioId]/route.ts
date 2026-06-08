@@ -8,6 +8,7 @@ interface RequestParams {
 }
 
 // Uses the "radio-id" API to search for a radio, recognize the music currently playing, and save it as a new record in the db
+// OBS: This version gets the last music played on that radio with the backend response, along with the radio data like the stream URL
 // http://localhost:3000/api/id/f0d81ba6-285c-4b93-97c9-4398d20c7797   // v2
 export async function GET(request: NextRequest, { params }: RequestParams) {
   try {
