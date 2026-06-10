@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { getRadio } from "../../services/get-radio"
 import { Header } from "../../components/header"
 import { Details } from "./details"
-import { History } from "./history"
+import { Panel } from "./panel"
 import { Footer } from "../../components/footer"
 
 type Props = {
@@ -36,7 +36,7 @@ export default function Page() {
       </Suspense>
 
       <Suspense>
-        <History />
+        <Panel />
       </Suspense>
       <Footer />
     </div>

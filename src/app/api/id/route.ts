@@ -5,6 +5,7 @@ import { getLastId } from "../services/get-last-id"
 import { saveId } from "../services/save-id"
 
 // Uses the "radio-id" API to search for a radio, recognize the music currently playing, and save it as a new record in the db
+// OBS: This version get the last music played on that radio by doing a db query
 // http://localhost:3000/api/id?name=kiss_fm&countrycode=BR   // v1
 export async function GET(request: NextRequest) {
   try {
