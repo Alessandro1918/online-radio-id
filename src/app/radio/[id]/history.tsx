@@ -37,6 +37,10 @@ export function History() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
+      {/* V1 */}
+      {/* <pre>
+        {JSON.stringify(history, null, 2)}
+      </pre> */}
 
       {/* Date picker */}
       <div className="flex items-center gap-8">
@@ -79,9 +83,6 @@ export function History() {
               <span className="mx-auto">Nada salvo nesse dia!</span>
         }
       </div>
-      {/* <pre>
-        {JSON.stringify(history, null, 2)}
-      </pre> */}
     </div>
   )
 }
