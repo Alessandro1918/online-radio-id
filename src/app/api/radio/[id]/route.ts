@@ -24,38 +24,7 @@ export async function GET(req: NextRequest, { params }: RequestProps) {
         'music_artist', i.music_artist,
         'music_title', i.music_title,
         'timestamp', i.timestamp
-      ) AS "last_played",
-      json_build_object(
-        'count', (
-          SELECT COUNT(*)
-          FROM ids
-          WHERE ids.radio = r.id
-        ),
-        'most_played', (
-          SELECT COALESCE(
-            json_agg(
-              json_build_object(
-                'artist', artist_stats.music_artist,
-                'count', artist_stats.play_count
-              )
-              ORDER BY artist_stats.play_count DESC
-            ),
-            '[]'::json
-          )
-          FROM (
-            SELECT
-              music_artist,
-              COUNT(*) AS play_count
-            FROM ids
-            WHERE ids.radio = r.id
-              AND music_artist IS NOT NULL
-            GROUP BY music_artist
-            HAVING COUNT(*) > 1
-            ORDER BY COUNT(*) DESC
-            LIMIT 10
-          ) artist_stats
-        )
-      ) AS "stats"
+      ) AS "last_played"
     FROM radios r
     LEFT JOIN LATERAL (
       SELECT music_artist, music_title, timestamp

@@ -24,3 +24,8 @@ GET http://localhost:3000/api/history?radio=8e3429cd-6340-4248-8371-6540f3e9f7fe
 ###
 # Delete all the db records older than "n" days
 DELETE http://localhost:3000/api/history/clear
+
+###
+# Stats
+# Query the db for the total count and rank of most played artists of single radio
+GET http://localhost:3000/api/stats/f0d81ba6-285c-4b93-97c9-4398d20c7797
